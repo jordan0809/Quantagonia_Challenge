@@ -70,7 +70,7 @@ def simulator(data,mu):
         
     H = unitary(unitary_list)
     
-    state = H@initial
+    state = H@initial@H
     state = noise(state,mu,q)
     
     cx_seq = []
@@ -86,7 +86,7 @@ def simulator(data,mu):
         cx_seq.append(cx_gate)
     
     for gate in cx_seq:
-        state = gate@state
+        state = gate@state@gate
         state = noise(state,mu,q)
         
     fidelity = ref_state.reshape(1,d)@state@ref_state.reshape(d,1)
